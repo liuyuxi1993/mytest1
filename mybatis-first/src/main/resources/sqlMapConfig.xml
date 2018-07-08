@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE configuration PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-config.dtd">
+<configuration>
+     
+     <!-- 加载属性文件，说明
+        1.resource:加载本地的配置文件
+        2.url:加载网络上的配置文件url="http://127.0.0.1:8080/db.propertirs"
+      -->
+      <properties resource="db.properties">
+        <property name="db.username" value="root123"></property>
+      </properties>
+      
+      <!-- 配置自定义别名 -->
+      <typeAliases>
+         <!-- 配置用户别名，说明：
+             1.type指定别名的类型
+             2.默认使用类的名称作为别名的名称
+             3.alias:指定别名的名称
+          -->
+<!--          <typeAlias type="cn.itheima.po.User" alias="user"></typeAlias>
+ -->      
+     <!-- 包扫描方式配置别名，说明：
+          1.name: 指定要扫描的包
+          2.默认都是使用类的名称作为别名的名称
+          3.如果有多个包，在同一个父包下，配置父包即可
+          4.不在同一个父包下，配置多个：<package name="cn.itheima.po">
+          5.在企业项目中，推荐使用包扫描方式
+      -->
+     <package name="cn.itheima.po"></package>
+ 
+     </typeAliases>
+
+    <!-- 运行环境配置 -->
+    <!-- default:默认使用哪一个运行环境 -->
+	<environments default="development">
+	    <!-- id:唯一标识一个名称 -->
+		<environment id="development">
+		    <!-- 事务管理器配置，JDBC:默认使用 Jdbc 的事务-->
+			<transactionManager type="JDBC" />
+			<!-- 数据源配置，POOLED:框架内部提供的连接池-->
+			<dataSource type="POOLED">
+				<property name="driver" value="${db.driver}" />
+				<property name="url" value="${db.url}" />
+				<property name="username" value="${db.username}" />
+				<property name="password" value="${db.password}" />
+			</dataSource>
+		</environment>
+	</environments>
+	 <mappers>
+		<mapper resource="sqlmap/User.xml" />
+		<!-- 加载UserMapper.xml文件 -->
+		<!-- <mapper resource="sqlmap/UserMapper.xml"></mapper> -->
+		<package name="cn.itheima.mapper"></package> 
+	</mappers> 
+</configuration>
